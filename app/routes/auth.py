@@ -4,6 +4,7 @@ from flask import Blueprint, render_template, redirect, url_for, request, flash
 from flask_login import login_user, logout_user, login_required
 # Importar o modelo de usuário e a instância do banco de dados
 from app.models.user import User
+from app.models.especialista import Especialista
 from app import db
 
 # Criar um Blueprint para rotas de autenticação
@@ -92,7 +93,7 @@ def register():
     """
     if request.method == 'POST':
         # Obter dados do formulário
-        username = request.form.get('username')
+        username = request.form.get('nome_completo')
         email = request.form.get('email')
         password = request.form.get('password')
         confirm_password = request.form.get('confirm_password')
@@ -107,33 +108,63 @@ def register():
             flash('As senhas não coincidem.', 'danger')
             return render_template('register.html')
         
-        # Verificar se o nome de usuário já existe
-        if User.query.filter_by(username=username).first():
-            flash('Este nome de usuário já está em uso.', 'danger')
-            return render_template('register.html')
+        if request.form.get('role') == "paciente":
+            # Verificar se o nome de usuário já existe
+            if User.query.filter_by(username=username).first():
+                flash('Este nome de usuário já está em uso.', 'danger')
+                return render_template('register.html')
+            
+            # Verificar se o email já está cadastrado
+            if User.query.filter_by(email=email).first():
+                flash('Este email já está cadastrado.', 'danger')
+                return render_template('register.html')
+            
+            # Criar novo objeto User
+            new_user = User(username=username, email=email)
+            # Definir senha (será criptografada automaticamente)
+            new_user.set_password(password)
+            
+            # Tentar salvar no banco de dados
+            try:
+                # Adicionar usuário à sessão do banco
+                db.session.add(new_user)
+                # Confirmar a transação (salvar no banco)
+                db.session.commit()
+                flash('Conta criada com sucesso! Faça login.', 'success')
+                return redirect(url_for('auth.login'))
+            except Exception as e:
+                # Se houver erro, desfazer a transação
+                db.session.rollback()
+                flash('Erro ao criar conta. Tente novamente.', 'danger')
         
-        # Verificar se o email já está cadastrado
-        if User.query.filter_by(email=email).first():
-            flash('Este email já está cadastrado.', 'danger')
-            return render_template('register.html')
+        if request.form.get('role') == "especialista":
+                    # Verificar se o nome de usuário já existe
+            if Especialista.query.filter_by(username=username).first():
+                flash('Este nome de usuário já está em uso.', 'danger')
+                return render_template('register.html')
+            
+            # Verificar se o email já está cadastrado
+            if Especialista.query.filter_by(email=email).first():
+                flash('Este email já está cadastrado.', 'danger')
+                return render_template('register.html')
+            
+            # Criar novo objeto User
+            new_especialista = Especialista(username=username, email=email)
+            # Definir senha (será criptografada automaticamente)
+            new_especialista.set_password(password)
+            
+            # Tentar salvar no banco de dados
+            try:
+                # Adicionar usuário à sessão do banco
+                db.session.add(new_especialista)
+                # Confirmar a transação (salvar no banco)
+                db.session.commit()
+                flash('Conta criada com sucesso! Faça login.', 'success')
+                return redirect(url_for('auth.login'))
+            except Exception as e:
+                # Se houver erro, desfazer a transação
+                db.session.rollback()
+                flash('Erro ao criar conta. Tente novamente.', 'danger')
         
-        # Criar novo objeto User
-        new_user = User(username=username, email=email)
-        # Definir senha (será criptografada automaticamente)
-        new_user.set_password(password)
-        
-        # Tentar salvar no banco de dados
-        try:
-            # Adicionar usuário à sessão do banco
-            db.session.add(new_user)
-            # Confirmar a transação (salvar no banco)
-            db.session.commit()
-            flash('Conta criada com sucesso! Faça login.', 'success')
-            return redirect(url_for('auth.login'))
-        except Exception as e:
-            # Se houver erro, desfazer a transação
-            db.session.rollback()
-            flash('Erro ao criar conta. Tente novamente.', 'danger')
-    
     # Se for GET ou houver erro, exibir o formulário de registro
     return render_template('register.html')

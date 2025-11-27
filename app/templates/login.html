@@ -1,28 +1,35 @@
+
+
 {% extends "base.html" %}
 
-{% block title %}Login - Sistema Template{% endblock %}
+{% block title %}Cadastro - CareFY{% endblock %}
 
 {% block content %}
 <div class="container">
     <div class="auth-container">
         <div class="auth-card">
-            <h1 class="auth-title">Login</h1>
-            <p class="auth-subtitle">Entre com suas credenciais</p>
+            <h1 class="auth-title">LOGIN</h1>
+            <p class="auth-subtitle">Acesso a sua conta</p>
             
-            <form method="POST" action="{{ url_for('auth.login') }}" class="auth-form">
+            <form method="POST" action="{{ url_for('auth.register') }}" class="auth-form">
+                <!-- Campo CPF -->
                 <div class="form-group">
-                    <label for="username">Usuário</label>
+                    <label for="cpf">CPF</label>
                     <input 
                         type="text" 
-                        id="username" 
-                        name="username" 
+                        id="cpf" 
+                        name="cpf" 
                         class="form-control" 
-                        placeholder="Digite seu usuário"
+                        placeholder="Digite seu CPF"
                         required
                         autofocus
+                        maxlength="11"
+                        pattern="\d{11}"
+                        title="O CPF deve conter exatamente 11 números"
                     >
                 </div>
 
+                <!-- Campo Senha com validação -->
                 <div class="form-group">
                     <label for="password">Senha</label>
                     <input 
@@ -32,26 +39,19 @@
                         class="form-control" 
                         placeholder="Digite sua senha"
                         required
+                        pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+                        title="A senha deve ter pelo menos 8 caracteres, incluindo letra maiúscula, minúscula, número e caractere especial"
                     >
                 </div>
 
-                <div class="form-group form-check">
-                    <input 
-                        type="checkbox" 
-                        id="remember" 
-                        name="remember" 
-                        class="form-check-input"
-                    >
-                    <label for="remember" class="form-check-label">Lembrar-me</label>
-                </div>
 
                 <button type="submit" class="btn btn-primary btn-block">
-                    Entrar
+                    Acessar
                 </button>
             </form>
 
             <div class="auth-footer">
-                <p>Não tem uma conta? <a href="{{ url_for('auth.register') }}">Cadastre-se</a></p>
+                <p>Já tem uma conta? <a href="{{ url_for('auth.login') }}">Entrar</a></p>
             </div>
         </div>
     </div>

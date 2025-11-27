@@ -1,11 +1,12 @@
+
 {% extends "base.html" %}
 
-{% block title %}Início - Sistema Template{% endblock %}
+{% block title %}Início - CareFY{% endblock %}
 
 {% block content %}
 <div class="container">
     <div class="hero-section">
-        <h1 class="hero-title">Bem-vindo, {{ user.username }}!</h1>
+        <h1 class="hero-title">Bem-vindo!</h1>
         <p class="hero-subtitle">Você está autenticado no sistema</p>
     </div>
 
@@ -36,17 +37,16 @@
         <h2>Informações da Conta</h2>
         <div class="info-grid">
             <div class="info-item">
-                <strong>Usuário:</strong> {{ user.username }}
+                <strong>Usuário:</strong>
+            <div class="info-item">
+                <strong>Email:</strong>
             </div>
             <div class="info-item">
-                <strong>Email:</strong> {{ user.email }}
-            </div>
-            <div class="info-item">
-                <strong>Conta criada em:</strong> {{ user.created_at.strftime('%d/%m/%Y às %H:%M') }}
+                <strong>Conta criada em:</strong>
             </div>
             <div class="info-item">
                 <strong>Status:</strong> 
-                <span class="badge badge-success">{{ 'Ativo' if user.is_active else 'Inativo' }}</span>
+                <span class="badge badge-success"></span>
             </div>
         </div>
     </div>
