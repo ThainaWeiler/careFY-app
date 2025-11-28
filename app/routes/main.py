@@ -8,7 +8,6 @@ from flask_login import login_required, current_user
 main_bp = Blueprint('main', __name__)
 
 @main_bp.route('/')
-# @login_required  # Decorator que protege a rota - requer autenticação
 def index():
     """
     Página inicial do sistema (protegida).
@@ -21,7 +20,7 @@ def index():
     """
     # current_user é um objeto especial do Flask-Login que representa
     # o usuário atualmente autenticado na sessão
-    return render_template('index.html')
+    return render_template('index.html', user=current_user)
 
 @main_bp.route('/dashboard')
 @login_required  # Esta rota também requer autenticação

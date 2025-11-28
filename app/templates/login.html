@@ -2,7 +2,7 @@
 
 {% extends "base.html" %}
 
-{% block title %}Cadastro - CareFY{% endblock %}
+{% block title %}login - CareFY{% endblock %}
 
 {% block content %}
 <div class="container">
@@ -51,7 +51,7 @@
             </form>
 
             <div class="auth-footer">
-                <p>Já tem uma conta? <a href="{{ url_for('auth.login') }}">Entrar</a></p>
+                <p>Não tem conta? <a href="{{ url_for('auth.login') }}">Cadastrar</a></p>
             </div>
         </div>
     </div>
