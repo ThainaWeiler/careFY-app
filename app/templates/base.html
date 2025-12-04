@@ -8,26 +8,20 @@
     {% block extra_css %}{% endblock %}
 </head>
 <body>
-    <nav class="navbar">
-        <div class="container">
-            <div class="navbar-brand">
-                <a href="{{ url_for('main.index')}}">
-                    CareFY
-                </a>
-            </div>
-            <div class="navbar-menu">
-                {% if current_user.is_authenticated %}
-                    <a href="{{ url_for('main.index') }}">Início</a>
-                    <a href="{{ url_for('main.dashboard') }}">Dashboard</a>
-                    <span class="navbar-user">Olá, {{ current_user.username }}!</span>
-                    <a href="{{ url_for('auth.logout') }}" class="btn-logout">Sair</a>
-                {% else %}
-                    <a href="{{ url_for('auth.login') }}">Login</a>
-                    <a href="{{ url_for('auth.register') }}">Cadastrar</a>
-                {% endif %}
-            </div>
+    <header>
+        <a href="{{ url_for('auth.index') }}" class="logo">CareFY</a>
+        <nav class="buttons">
+            <ul>
+                <a href="{{ url_for('auth.nos') }} ">Sobre nós</a>
+                <a href="{{ url_for('auth.objetivo') }} ">Objetivos</a>
+                <a href="{{ url_for('auth.visao') }} ">Visão de mercado</a>
+            </ul>
+        </nav>
+        <div class="buttons">
+            <a href="{{ url_for('auth.login') }}">Acesse sua conta</a>
+            <a href="{{ url_for('auth.register') }}"><Cadastre-se>Cadastre-se</Cadastre-se></a>
         </div>
-    </nav>
+    </header>
 
     <main class="main-content">
         {% with messages = get_flashed_messages(with_categories=true) %}
@@ -48,7 +42,7 @@
 
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2025 Sistema Template - IENH Dev Sistemas II</p>
+            <p>&copy; 2025 CareFY - IENH Dev Sistemas II</p>
         </div>
     </footer>
 

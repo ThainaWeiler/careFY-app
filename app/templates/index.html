@@ -4,9 +4,26 @@
 
 {% block content %}
 
-<div class="containerindex">
-    <h1>Bem-vindos ao CareFY !</h1>
-    <p>"Para quem precisa de cuidado e para quem escolheu cuidar"</p>
-</div>
+<head>
+    <meta charset="UTF-8">
+    <title>CareFY</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head class="bcinter">
+<body>
+
+    <main>
+        <div class="banner">
+            <div class="texto">
+                <h1>CareFY</h1>
+                <p style="color: white;">Para quem precisa de cuidado e para quem escolheu cuidar</p>
+
+            </div>
+            <div class="imagem">
+                <img src="{{ url_for('static', filename='imagens/imagem_inicio.png') }}" alt="Imagem aplicativo">
+            </div>
+        </div>
+    </main>
+</body>
+
     
 {% endblock %}

@@ -11,7 +11,7 @@
             <h1 class="auth-title">LOGIN</h1>
             <p class="auth-subtitle">Acesso a sua conta</p>
             
-            <form method="POST" action="{{ url_for('auth.register') }}" class="auth-form">
+            <form method="POST" action="{{ url_for('auth.login') }}" class="auth-form">
                 <!-- Campo CPF -->
                 <div class="form-group">
                     <label for="cpf">CPF</label>
@@ -44,14 +44,12 @@
                     >
                 </div>
 
+                <button type="submit" class="btn btn-primary btn-block" ><a href="{{ url_for('auth.dashboard') }}">Acessar</a></button>
 
-                <button type="submit" class="btn btn-primary btn-block">
-                    Acessar
-                </button>
             </form>
 
             <div class="auth-footer">
-                <p>Não tem conta? <a href="{{ url_for('auth.login') }}">Cadastrar</a></p>
+                <p>Não tem conta? <a href="{{ url_for('auth.register') }}">Cadastrar</a></p>
             </div>
         </div>
     </div>
